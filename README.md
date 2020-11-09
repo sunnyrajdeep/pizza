@@ -1,7 +1,8 @@
 # PizzaTreat
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
-Clone repo and run in project directory `npm install`
+
+Clone repo and run `npm install` in project directory
 
 
 ## Development server
