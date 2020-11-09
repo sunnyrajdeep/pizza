@@ -1,0 +1,226 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+
+  footer {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+  }
+
+  footer a {
+    display: flex;
+    align-items: center;
+  }
+
+
+  svg#clouds {
+    position: fixed;
+    bottom: -160px;
+    left: -230px;
+    z-index: -10;
+    width: 1920px;
+  }
+
+  button {
+    margin-right: 2px;
+    ;
+  }
+
+  /*Right*/
+  .modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 520px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+  }
+
+  .modal.right.fade .modal-dialog {
+    right: 20px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+  }
+
+  .modal.right.fade.in .modal-dialog {
+    right: 0;
+  }
+
+  /* ----- MODAL STYLE ----- */
+  .modal-content {
+    border-radius: 0;
+    border: none;
+  }
+
+  .modal-header {
+    border-bottom-color: #EEEEEE;
+    background-color: #FAFAFA;
+  }
+
+  .card2 {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    box-shadow: 2px 2px 4px 0px #d8d8d8;
+    margin-bottom: 10px;
+    padding: 33px 0;
+  }
+</style>
+
+<!-- Toolbar -->
+
+
+<div class="container" role="main">
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="navbar-brand" href="javascript:void(0)">Pizza Treat</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- <div class="d-flex">
+    <div class="p-2 bg-info flex-fill">Flex item 1</div>
+    <div class="p-2 bg-warning flex-fill">Flex item 2</div>
+    <div class="p-2 bg-primary flex-fill">Flex item 3</div>
+  </div> -->
+  <div class="col-md-12">
+    <br>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-light" *ngFor="let order of orders">
+      <div class="col-md-12 col-sm-12 col-xs 12">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>
+              <span class="badge badge-pill badge-primary" *ngIf="order.order_status==1">Order recieved</span>
+              <span class="badge badge-pill badge-primary" *ngIf="order.order_status==2">Preparing</span>
+              <span class="badge badge-pill badge-primary" *ngIf="order.order_status==3">Ready to serve</span>
+            </h4>
+          </div>
+          <div class="col-sm-2">
+            <span>Order No.</span>
+            <h5>#{{order.order_number}}</h5>
+          </div>
+          <div class="col-sm-4">
+            <span>Name:</span>
+            <h5>{{order.customer_name}}</h5>
+          </div>
+          <div class="col-sm-1">
+            <span>Items:</span>
+            <h5>{{order.order_items.length}}</h5>
+          </div>
+          <div class="col-sm-2">
+            <span>Amount:</span>
+            <h5>£{{order.order_amount}} </h5>
+          </div>
+          <div class="col-sm-3">
+
+            <button type="button" data-toggle="modal" data-target="#myModal2" (click)="viewDetails(order)"
+              class="btn btn-primary btn-sm">View
+              details</button>
+            <button type="button" (click)="changeStatus(order.order_number)" class="btn btn-primary btn-sm">
+              Change Status</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="col-md-12">
+    <br>
+  </div>
+  <!-- Order Modal -->
+
+  <!-- Modal -->
+  <div class="modal right fade" id="myModal2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Order: #{{viewOrder.order_number}}</h4>
+          &nbsp;
+          <h4>
+            <span class="badge badge-pill badge-primary" *ngIf="viewOrder.order_status==1">Order recieved</span>
+            <span class="badge badge-pill badge-primary" *ngIf="viewOrder.order_status==2">Preparing</span>
+            <span class="badge badge-pill badge-primary" *ngIf="viewOrder.order_status==3">Ready to serve</span>
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+          <h4>Ordered by: {{viewOrder.customer_name}}</h4>
+          <p>Address: {{viewOrder.address}}</p>
+          <div class="card2" *ngFor="let item of viewOrder.order_items">
+            <div class="col-sm-6">
+              <h6>{{item.name}}</h6>
+              <span>{{item.extra_info}}</span>
+            </div>
+            <div class="col-sm-3">
+              <span>Rate: {{item.amount}}</span>
+            </div>
+            <div class="col-sm-3">
+              <span>Quantity: {{item.qty}}</span>
+            </div>
+          </div>
+          <h3>Total: £{{viewOrder.order_amount}}</h3>
+        </div>
+
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+
+  <!-- Footer -->
+  <footer>
+    Liked this pizza-treat demo?&nbsp;
+    <a href="https://github.com/sunnyrajdeep" target="_blank" rel="noopener"> Visit my gituhb repo.
+    </a>
+  </footer>
+
+  <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677"
+    viewBox="0 0 2611.084 485.677">
+    <path id="Path_39" data-name="Path 39"
+      d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+      transform="translate(142.69 -634.312)" fill="#eee" />
+  </svg>
+
+</div>
+
+<router-outlet></router-outlet>
